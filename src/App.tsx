@@ -1,5 +1,5 @@
 import Hero from "./hero";
-import Section2 from "./Section2";
+
 
 const App=()=> {
   
@@ -7,7 +7,7 @@ const App=()=> {
   return (
     <main>
       < Hero />
-      < Section2/>
+      
     </main>
   );
 };

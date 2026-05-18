@@ -2,14 +2,47 @@ import "tailwindcss";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls,Stage,Center } from "@react-three/drei";
 import { PorscheModel } from "./components/PorscheModel";
+import { useRef } from "react";
 
 const Hero=()=>{
+
+  const containerRef=useRef<HTMLDivElement>(null);
+  const handleMouseMove=(e:React.MouseEvent)=>{
+    if(!containerRef.current) return;
+    const {clientX,clientY}=e;
+    const {innerWidth,innerHeight}=window;
+    const x=(clientX-innerWidth/2)/(innerWidth/2);
+    const y=(clientY-innerHeight/2)/(innerHeight/2);
+    
+    containerRef.current.style.setProperty("--mx",`${x}`);
+    containerRef.current.style.setProperty("--my",`${y}`);
+
+  };
+    const handleMouseLeave=()=>{
+      if(!containerRef.current) return;
+      containerRef.current.style.setProperty("--mx","0");
+      containerRef.current.style.setProperty("--mx","0");
+
+    }
+
 
 
     return(    
       
-    <section className=" relative min-h-screen flex justify-center bg-radial from-neutral-500 via-neutral-600 to-neutral-700 text-white px-8 md:px-16 overflow-hidden">
-        <div className="absolute bottom-6 left-6 flex items-center gap-4 ">
+    <section 
+    ref={containerRef}
+    onMouseMove={handleMouseMove}
+    onMouseLeave={handleMouseLeave}
+
+    
+    
+    className=" relative min-h-screen flex justify-center bg-radial from-neutral-500 via-neutral-600 to-neutral-700 text-white px-8 md:px-16 overflow-hidden">
+        <div 
+        style={{
+            transform:"translate(calc(var(--mx,0)*3px), calc(var(--my,0)*3px))",
+          }}
+        
+        className="absolute bottom-6 left-6 flex items-center gap-4 ">
           <button className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md transition hover:bg-white/20 ">
             Shop Accessories
           </button>
@@ -23,7 +56,11 @@ const Hero=()=>{
 
         </div>
 
-      <div className="absolute rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl shadow-black/30 transition-all px-20 duration-100 top-10 right-8 md:top-30 md:right-25 text-right hover:text-white">
+      <div 
+      style={{
+        transform:"translate(calc(var(--mx,0) * -3px), calc(var(--my,0)* -3px)) ",
+      }}
+      className="absolute rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl shadow-black/30 transition-all px-20 duration-100 top-10 right-8 md:top-30 md:right-25 text-right hover:text-white">
         <h3 className="text-3xl tracking-wide mb-4 mr-2 text-center text-white/95">Specs</h3>
         <div className="flex flex-col gap-3">
         <div className="bg-neutral-950/40 border border-white/5 rounded-2xl w-60 h-20 transition-all duration-300 hover:bg-neutral-950/50">
@@ -50,7 +87,9 @@ const Hero=()=>{
             <span className="text-[11px] block text-right ml-32 mt-1.8 font-medium tracking-wide text-neutral-400 mb-0.5">
               Seating Capacity
             </span>
-            <span className="text-xl font-bold tracking-tight text-white">4 Passengers</span>
+            <span className="text-xl font-bold tracking-tight text-white">4 Passengers
+
+            </span>
           </div>
         </div>
         <div className="flex flex-col mb-2 items-end">
@@ -80,7 +119,12 @@ const Hero=()=>{
         </div>
       </nav>
       
-    <div className="absolute top-10 left-8 md:top-15 md:left-25 max-w-xl text-left z-10">
+    <div
+    style={{
+      transform:"translate(calc(var(--mx,0)*3px), calc(var(--my,0)*3px))",
+    }}
+
+    className="absolute top-10 left-8 md:top-15 md:left-25 max-w-xl text-left z-10">
         <h2 className="font-smooch mask-b-from-neutral-500 text-6xl sm:text-7xl md:text-8xl  tracking-wide uppercase mb-4 drop-shadow-md leading-tight">
           Porsche 911
         </h2>
